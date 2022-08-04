@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Quadratic equation solver</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<style>
+body {
+  padding:0;  
+  margin:0.2rem;
+
+}
+*{
+   font-family: 'Poppins', sans-serif;
+}
+header{
+    text-align:center;
+}
+.container{
+    text-align:center;
+    box-sizing:border-box;
+    box-shadow:0 0 5px gray;
+    padding:1rem;
+    margin:1.4rem;
+    max-width:900px;
+    border-radius:5px;
+}
+#Example{
+    text-align:center;
+    box-sizing:border-box;
+    box-shadow:0 0 5px gray;
+    padding:1rem;
+    margin:1.4rem;
+    max-width:900px;
+    background:beige;
+}
+#sample p{
+    font-size:2.5rem;
+}
+input{
+  width:20%;  
+  text-align:center;
+  outline-color:Azure;
+  border-radius:0.6rem;
+  border:none;
+  padding:0.8rem;
+  box-shadow:0 0 5px gray;
+  font-size:1rem;
+}
+.field span{
+    font-weight:600;
+}
+#button{
+    text-align:center;
+}
+#solve{
+width:90%;
+box-sizing:border-box; 
+padding:1.5rem;
+ border-radius:2rem;
+ border:none;
+ background:royalblue;
+ color:white;
+ outline:none;
+ font-weight:700;
+}
+.field{
+    display:flex;
+    flex-wrap:nowrap;
+    justify-content:center;
+    align-items:center;
+}
+select{
+   width:90%;
+box-sizing:border-box; 
+padding:1.5rem;
+ border-radius:2rem;
+ border:none;
+ background:royalblue;
+ color:white;
+ outline:none;
+}
+.Solvercontainer{
+    text-align:center;
+    box-sizing:border-box;
+    box-shadow:0 0 5px gray;
+    padding:1rem;
+    margin:1.4rem;
+    max-width:900px;
+    border-radius:5px;
+    display:none;
+    overflow:auto;
+}
+.helpText{
+    opacity:0.7;
+    font-size:1rem;
+}
+</style>
+    </head>
+    <body>
+        <header>
+            <h1>Quadratic equation<br/>solver</h1>
+        </header>
+        
+        <div class="container">
+        
+            <div id="sample">
+                <p>ax<sup>2</sup>+bx+c=0</p>
+            </div>
+            
+            <div id="Example">
+                <div id="showExample">
+                    <p>E.g :3x<sup>2</sup>-7x-5=0</p>
+                <div class="field">
+                   <div>
+                  <span>a=</span>
+                   <input type="number" maxlength="4" id="a+" value="3"disabled/>
+                   </div>
+                   <div>
+                   <span>b=</span>
+                   <input type="number" maxlength="4" id="b+" value="-7" disabled/>
+                   </div>
+                   <div>
+                   <span>c=</span>
+                   <input type="number" maxlength="4" id="c+" value="-5"disabled/>
+                   </div>
+                </div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+          <div>
+              <p class="helpText">Choose method of solving..</p>
+          </div>
+            <select id="mode">
+                <option value="1">Completing the square</option>
+                <option value="2">Formular method</option>
+            </select>
+            
+        </div>
+        
+        <div class="container">
+           <div>
+               <h2>Input values</h2>
+               <p class="helpText">*operational signs e.g(+,- etc) is important..</p>
+           </div>
+            <div class="field">
+               <div>
+            <span>a=</span>
+                   <input type="number" maxlength="1" id="a"/>
+                   
+                </div>
+                <div>
+                   <span>b=</span>
+                   <input type="number" maxlength="1" id="b"/>
+                   </div>
+                   <div>
+                   <span>c=</span>
+                   <input type="number" maxlength="1" id="c"/>
+                </div>
+            </div>
+        </div>
+        
+        <div id="button">
+            <button id="solve">SOLVE</button>
+        </div>
+        <div class="Solvercontainer">
+            <pre id="solution"></pre>
+        </div>
+   <script>
+
+window.onload=()=>{
+var completingTheSquare=(a=1,b=1,c=1)=>{
+    let equationA=`(${a}x²)+(${b}x)+(${c})=0`;
+    let equationB,equationC,C,equationD,equationE,equationF,equationG,equationH;
+    let halfB,left,mult,right,A,B,D,sumB,sumA;
+    
+    if(c>0){
+    C=-(Math.abs(c));
+     equationB=`(${a}x²)+(${b}x)=(${C})`;
+     //return equationB;
+    }else{
+    C=+(Math.abs(c));
+        equationB=`(${a}x²)+(${b}x)=(${C})`;
+        //return equationB ;
+    }
+    
+    if(a>1 || a<0){
+        equationC=`(${a}x/${a})+(${b}x/${a})=(${C}/${a}))`;
+        //return equationC;
+        A=(a/a).toFixed(2);
+        B=(b/a).toFixed(2);
+        D=(C/a);
+        
+    halfB=(B*(1/2));
+    
+    }else{
+        equationC=`(${A}x²)+(${B}x)=(${D})`;
+        //return equationC;
+        halfB=b*(1/2);
+    }
+    //Half the coefficient of b
+    let noteA="Half the coefficient of b ";
+    
+    
+    equationD=` (${A}x²)+(${B}x)+(${halfB})²=${D}+(${halfB})²`;
+    
+    let noteB="Lets solve whats on the left";
+    mult=Math.pow(halfB,2);
+    
+    left=(D+mult);
+   // alert(mult);
+    //left equation 
+   equationE=`${D}+${mult}`;
+   
+   let noteC="lets go back to the right";
+   right=(halfB);
+  equationF=`(x +(${right}))²=${left}`;
+   
+    let noteD="Square both sides";
+     equationG=`x + (${right})=±√${left}`;
+     let square =Math.sqrt(left);
+     
+     equationH=`x = ${right}+${left} OR x=${right}-${left}`;
+     if(right>0){
+     let filter=-(Math.abs(right));
+    sumA=(filter+square).toFixed(2);
+    sumB=(filter-square).toFixed(2);
+    
+    }else{
+        let filter=+(Math.abs(right));
+    sumA=(filter+square).toFixed(2);
+    sumB=(filter-square).toFixed(2);
+    }
+document.getElementById("solution").innerHTML=` ${equationA}<br/>
+   ${equationB} <br/>
+   ${equationC} <br/>
+  <br/>
+   ${noteA}<br/>
+   <br/>
+   ${equationD}<br/>
+   <br/>
+   ${noteB}<br/>
+   <br/>
+   ${equationE}<br/>
+   <br/>
+   ${noteC}<br/>
+   <br/>
+   ${equationF}<br/>
+   <br/>
+   ${noteD}<br/>
+   <br/>
+   ${equationG}<br/>
+   ${equationH}
+   <br/>
+   Answer (x)= ${sumA} OR
+   (x)=${sumB} <br/>
+   <h4><i>-by emediongekoh</i></h4>`;
+}
+
+var formularMethod=(a=1,b=1,c=1)=>{
+  let equationA,equationB,equationC,equationD,equationE;
+  
+  equationA='x=-b±√b²-4ac/2a';
+  let noteA="Substitute variable in formular";
+  equationB=`x=-${b}±√-4${a}*${c}/2${a}`;
+  let noteB="Simplify to get answer";
+  equationC=`x=-${b}±√${(b**2)-(4*a*c)}/${2*a}`;
+  let top=(b**2)-(4*a*c);
+  let bottom=(2*a);
+  equationD=`x=-${b}±${Math.sqrt(top)}/${bottom}`;
+  let finalize=Math.sqrt(top);
+   equationE =` x = -${b}+${finalize}/${bottom}OR x = -${b}-${finalize}/${bottom}`;
+  
+  let sumA=(-(b)+(finalize))/bottom;
+  let sumB=(-(b)-(finalize))/bottom;
+    
+    document.getElementById("solution").innerHTML=` ${equationA}<br/>
+   ${noteA} <br/>
+   ${equationB} <br/>
+  <br/>
+   ${noteB}<br/>
+   <br/>
+   ${equationC}<br/>
+   <br/>
+   ${equationD}<br/>
+   ${equationE}<br/>
+   Answer (x)= ${sumA} OR
+   Answer (x)=${sumB};
+   <h4><i>-by emediongekoh</i></h4>
+   `
+}
+
+
+
+var solve=()=>{ 
+document.getElementsByClassName("Solvercontainer")[0].style.display="block";
+let mode=document.getElementById("mode").value;
+if(mode=="1"){
+let a= document.getElementById("a").value;   
+ let b= document.getElementById("b").value; 
+ let c= document.getElementById("c").value;  
+    completingTheSquare(a,b,c);
+}else{
+    let a= document.getElementById("a").value;   
+ let b= document.getElementById("b").value; 
+ let c= document.getElementById("c").value;  
+    formularMethod(a,b,c);
+}
+
+}
+
+document.getElementById('solve').onclick=solve;
+
+
+}
+
+</script>
+    </body>
+</html>
